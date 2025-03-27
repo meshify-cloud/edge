@@ -15,7 +15,7 @@ server {
         if ($invalid_referer){
             return 403;
         }
-        include /etc/nginx/conf.d/secure_link.conf;
+        include /etc/nginx/secure_link.conf;
         proxy_pass ${ORIGIN}$request_uri;
         # For Proxy Cache.
         proxy_cache hls_cache;
@@ -27,7 +27,7 @@ server {
     	if ($invalid_referer){
     		return 403;
     	}
-    	include /etc/nginx/conf.d/secure_link.conf;
+    	include /etc/nginx/secure_link.conf;
         proxy_pass ${ORIGIN}$request_uri;
         # For Proxy Cache.
         proxy_cache hls_cache;
