@@ -12,7 +12,7 @@ server {
     proxy_cache_lock_age 300s;
     proxy_cache_lock_timeout 300s;
     proxy_cache_min_uses 1;
-    # include /etc/nginx/conf.d/ip-access-rules.conf;
+    include /etc/nginx/conf.d/ip-access-rules.conf;
 
     location ~ /.+/.*\.(m3u8)$ {
         include /etc/nginx/valid_referers.conf;
