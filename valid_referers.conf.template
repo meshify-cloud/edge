@@ -1,0 +1,4 @@
+valid_referers ${VALID_REFERERS};
+if ($invalid_referer){
+    return 403;
+}
