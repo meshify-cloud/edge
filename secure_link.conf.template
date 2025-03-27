@@ -1,3 +1,4 @@
+error_log /var/log/nginx/secure_link.log notice;
 secure_link $arg_md5,$arg_expires;
 secure_link_md5 "${SECURE_LINK_SECRET}$remote_addr$secure_link_expires$uri";
 if ($secure_link = "") {
