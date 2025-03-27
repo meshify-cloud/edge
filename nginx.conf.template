@@ -30,5 +30,6 @@ server {
         # proxy_cache_lock on;
         proxy_cache_key $proxy_host$uri;
         proxy_cache_valid  200 302  60m;
+        proxy_force_ranges on;
     }
 }
