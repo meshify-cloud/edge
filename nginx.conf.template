@@ -11,7 +11,7 @@ server {
     proxy_cache_min_uses 1;
 
     location ~ /.+/.*\.(m3u8)$ {
-        valid_referers ${REFERERS};
+        valid_referers ${VALID_REFERERS};
         if ($invalid_referer){
             return 403;
         }
@@ -23,7 +23,7 @@ server {
         proxy_cache_valid  200 302  3s;
     }
     location ~ /.+/.*\.(ts|m4s)$ {
-        valid_referers ${REFERERS};
+        valid_referers ${VALID_REFERERS};
     	if ($invalid_referer){
     		return 403;
     	}

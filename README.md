@@ -8,4 +8,4 @@ For example, a 1Mbps HLS stream, with 1000 clients playing on NGINX, the bandwid
 | Field              | Description                          | Require  |
 | ------------------ | ---------------------------          | -------- |
 | ORIGIN        | The url of original server | Yes |
-| REFERERS        | The referrer that allow to access, set 'none' if no restrict | Yes |
+| VALID_REFERERS | The valid_referers config for nginx | No |
