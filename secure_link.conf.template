@@ -1,7 +1,17 @@
+add_header Content-Type "text/html; charset=utf-8";
 secure_link $arg_md5,$arg_expires;
 secure_link_md5 "${SECURE_LINK_SECRET}$http_x_real_ip$secure_link_expires$uri";
 if ($secure_link = "") {
-    return 403;
+    # return 403;
+    return 200 "
+        SECURE_LINK_SECRET: ${SECURE_LINK_SECRET}\n
+        secure_link_expires: $secure_link_expires\n
+        uri: $uri\n
+        X-Real-IP: $http_x_real_ip\n
+        Nginx Received IP: $remote_addr\n
+        arg_md5: $arg_md5\n
+        arg_expires: arg_expires\n
+    ";
 }
 if ($secure_link = "0") {
     return 410;
