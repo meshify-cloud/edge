@@ -1,4 +1,10 @@
 secure_link $arg_md5,$arg_expires;
 secure_link_md5 "${SECURE_LINK_SECRET}$remote_addr$secure_link_expires$uri";
-if ($secure_link = "") { return 403; }
-if ($secure_link = "0") { return 410; }
+if ($secure_link = "") {
+    error_log /var/log/nginx/secure_link.log "Invalid hash from IP: $remote_addr uri: $uri expires: $secure_link_expires";
+    return 403;
+}
+if ($secure_link = "0") {
+    error_log /var/log/nginx/secure_link.log "Expired hash from IP: $remote_addr uri: $uri expires: $secure_link_expires";
+    return 410;
+}
