@@ -1,4 +1,2 @@
 secure_link $arg_md5,$arg_expires;
 secure_link_md5 "${SECURE_LINK_SECRET}$remote_addr$secure_link_expires$uri";
-if ($secure_link = "") { return 403; }
-if ($secure_link = "0") { return 410; }
