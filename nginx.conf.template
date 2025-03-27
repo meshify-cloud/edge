@@ -3,7 +3,6 @@ proxy_temp_path /tmp/nginx-cache/tmp;
 server {
     listen       80;
     ${VALID_REFERERS}
-    include /etc/nginx/conf.d/secure_link.conf;
     add_header X-Cache-Status $upstream_cache_status;
     # For Proxy Cache.
     proxy_cache_valid  404      10s;
@@ -16,8 +15,7 @@ server {
         if ($invalid_referer){
             return 403;
         }
-        if ($secure_link = "") { return 403; }
-        if ($secure_link = "0") { return 410; }
+        include /etc/nginx/conf.d/secure_link.conf;
         proxy_pass ${ORIGIN}$request_uri;
         # For Proxy Cache.
         proxy_cache hls_cache;
@@ -29,8 +27,7 @@ server {
     	if ($invalid_referer){
     		return 403;
     	}
-    	if ($secure_link = "") { return 403; }
-        if ($secure_link = "0") { return 410; }
+    	include /etc/nginx/conf.d/secure_link.conf;
         proxy_pass ${ORIGIN}$request_uri;
         # For Proxy Cache.
         proxy_cache hls_cache;
