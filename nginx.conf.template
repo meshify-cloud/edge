@@ -33,7 +33,7 @@ server {
     }
     location /debug_secure_link {
         set $secret "666666";  # 替换为你的密钥
-        set $hash_input "$secret$remote_addr$arg_expires$uri";
+        set $hash_input "$secret$http_x_real_ip$arg_expires$uri";
 
         # 返回输入字符串，手动用工具计算MD5（如在线工具或命令行）
         add_header Content-Type "text/html; charset=utf-8";
