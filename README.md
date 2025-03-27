@@ -10,4 +10,4 @@ For example, a 1Mbps HLS stream, with 1000 clients playing on NGINX, the bandwid
 | ORIGIN        | The url of original server | Yes |
 | VALID_REFERERS | The valid_referers config for nginx | No |
 | SECURE_LINK_SECRET | The secure link secret | No |
-| ALLOWED_IPS | Set up specific IP ranges(CIDR) that allowed access | No |
+
