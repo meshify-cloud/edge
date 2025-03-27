@@ -36,11 +36,19 @@ server {
         set $hash_input "$secret$remote_addr$arg_expires$uri";
 
         # 返回输入字符串，手动用工具计算MD5（如在线工具或命令行）
-        add_header Content-Type text/plain;
+        add_header Content-Type "text/html; charset=utf-8";
         return 200 "
             Hash Input: $hash_input\n
             Received MD5: $arg_md5\n
             Expected MD5: (请手动计算 '$hash_input' 的MD5)
+        ";
+    }
+    location /debug_headers {
+        add_header Content-Type "text/html; charset=utf-8";
+        return 200 "
+            X-Forwarded-For: $http_x_forwarded_for\n
+            X-Real-IP: $http_x_real_ip\n
+            Nginx Received IP: $remote_addr\n
         ";
     }
 }
