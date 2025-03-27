@@ -33,17 +33,14 @@ server {
     }
     location /debug_secure_link {
         set $secret "666666";  # 替换为你的密钥
-        set $expected_md5 "";
-        set_md5 $expected_md5 "$secret$remote_addr$arg_expires$uri";
+        set $hash_input "$secret$remote_addr$arg_expires$uri";
 
+        # 返回输入字符串，手动用工具计算MD5（如在线工具或命令行）
         add_header Content-Type text/plain;
         return 200 "
-            URI: $uri\n
-            Client IP: $remote_addr\n
-            Expires: $arg_expires\n
+            Hash Input: $hash_input\n
             Received MD5: $arg_md5\n
-            Expected MD5: $expected_md5\n
-            Secure Link Status: $secure_link
+            Expected MD5: (请手动计算 '$hash_input' 的MD5)
         ";
     }
 }
