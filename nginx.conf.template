@@ -1,8 +1,8 @@
 proxy_cache_path  /tmp/nginx-cache levels=1:2 keys_zone=hls_cache:8m max_size=200m inactive=60m;
 proxy_temp_path /tmp/nginx-cache/tmp;
-set_real_ip_from 10.0.0.0/8;     # 内网网段
+set_real_ip_from 10.0.0.0/8;
 real_ip_header X-Real-IP;
-real_ip_recursive on;  # 递归排除信任的代理IP
+real_ip_recursive on;
 server {
     listen       80;
     add_header X-Cache-Status $upstream_cache_status;
@@ -32,5 +32,8 @@ server {
         proxy_cache_key $proxy_host$uri;
         proxy_cache_valid  200 302  60m;
         proxy_force_ranges on;
+    }
+    location = / {
+        return 403;
     }
 }
