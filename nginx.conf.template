@@ -1,5 +1,6 @@
 proxy_cache_path  /tmp/nginx-cache levels=1:2 keys_zone=hls_cache:8m max_size=200m inactive=60m;
 proxy_temp_path /tmp/nginx-cache/tmp;
+resolver 8.8.8.8;
 set_real_ip_from 10.0.0.0/8;
 real_ip_header X-Real-IP;
 real_ip_recursive on;
