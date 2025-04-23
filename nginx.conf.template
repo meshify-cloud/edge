@@ -1,6 +1,6 @@
 proxy_cache_path  /tmp/nginx-cache levels=1:2 keys_zone=hls_cache:64m max_size=200m inactive=60m;
 proxy_temp_path /tmp/nginx-cache/tmp;
-resolver 8.8.8.8;
+resolver 8.8.8.8 1.1.1.1 valid=30s;
 set_real_ip_from 10.0.0.0/8;
 real_ip_header X-Real-IP;
 real_ip_recursive on;
@@ -13,6 +13,10 @@ server {
     # proxy_cache_lock_age 300s;
     # proxy_cache_lock_timeout 300s;
     proxy_cache_min_uses 1;
+    proxy_buffering off;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_ignore_headers Cache-Control Expires Set-Cookie;
 
     location ~ /.+/.*\.(m3u8)$ {
         include /etc/nginx/valid_referers.conf;
@@ -22,8 +26,7 @@ server {
         # For Proxy Cache.
         proxy_cache hls_cache;
         proxy_cache_key $uri;
-        proxy_ignore_headers Cache-Control Expires Set-Cookie;
-        proxy_cache_valid  200 302  5s;
+        proxy_cache_valid  200 302  1s;
     }
     location ~ /.+/.*\.(ts|m4s)$ {
     	include /etc/nginx/valid_referers.conf;
@@ -32,7 +35,6 @@ server {
         # For Proxy Cache.
         proxy_cache hls_cache;
         proxy_cache_key $uri;
-        proxy_ignore_headers Cache-Control Expires Set-Cookie;
         proxy_cache_valid  200 302  60m;
         proxy_force_ranges on;
     }
